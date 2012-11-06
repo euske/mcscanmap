@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys, os
 import os.path
-import pygame
+import Image
 
 
 ##  Renderer
@@ -24,22 +24,22 @@ class Renderer(object):
         return
     
     def render(self, tree, name='', level=0):
-        b = pygame.Surface((self.size, self.size), flags=pygame.SRCALPHA)
+        img0 = Image.new('RGBA', (self.size, self.size))
         path = os.path.join(self.basedir, self.format % name)
         if level == self.maxlevel:
             assert isinstance(tree, int)
             assert name
             v = min(tree, len(self.COLORS)-1)
-            b.fill(self.COLORS[v])
+            img0.paste(self.COLORS[v], None)
         else:
-            b.fill((0,0,0,0))
+            img0.paste((0,0,0,0), None)
             for (k,(dx,dy)) in self.GRIDS:
                 if k not in tree: continue
                 src = self.render(tree[k], name+k, level=level+1)
-                img = pygame.image.load(src)
-                img = pygame.transform.rotozoom(img, 0, 0.5)
-                b.blit(img, (dx*self.size/2, dy*self.size/2))
-        pygame.image.save(b, path)
+                img1 = Image.open(src)
+                img1 = img1.resize((self.size/2, self.size/2))
+                img0.paste(img1, (dx*self.size/2, dy*self.size/2))
+        img0.save(path)
         print path
         return path
 
