@@ -8,9 +8,8 @@ import Image
 ##
 class Renderer(object):
 
-    COLORS = [(0,0,255,255),(0,255,255,255),(0,255,0,255),
-              (255,255,0,255),(255,128,0,255),(255,0,0,255)]
-    GRIDS = [('0',(0,0)), ('1',(1,0)), ('2',(0,1)), ('3',(1,1))]
+    COLORS = [(0,255,255), (0,255,128), (0,255,0), (128,255,0),
+              (224,224,0), (255,128,0), (255,0,0), (255,0,128)]
     
     def __init__(self, basedir, maxlevel, size=256):
         try:
@@ -33,7 +32,8 @@ class Renderer(object):
             img0.paste(self.COLORS[v], None)
         else:
             img0.paste((0,0,0,0), None)
-            for (k,(dx,dy)) in self.GRIDS:
+            for (k,(dx,dy)) in (('0',(0,0)), ('1',(1,0)),
+                                ('2',(0,1)), ('3',(1,1))):
                 if k not in tree: continue
                 src = self.render(tree[k], name+k, level=level+1)
                 img1 = Image.open(src)
