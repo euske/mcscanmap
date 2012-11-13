@@ -4,8 +4,6 @@ import md5
 import urlparse
 import requests
 import bsddb3
-import time
-import struct
 
 
 ##  MapScanner

@@ -3,7 +3,7 @@ by Yusuke Shinyama <yusuke at cs dot nyu dot edu>
 
 What is it?
 This program scans the pigmap output of a Minecraft server and
-generate an activity map overlay. It maintains a Berkeley dbm 
+generates an activity map overlay. It maintains a Berkeley dbm 
 file to keep the md5 hash of each image data to detect the changes.
 The scanning (crawling) is performed in an efficient manner so 
 only about 1-2% of the entire map data is needed.
